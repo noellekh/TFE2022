@@ -1,8 +1,9 @@
 module.exports = (sequelize, DataTypes) =>{
     const AgendaClient = sequelize.define ("AgendaClient",{
 
-        score: {
-            type: DataTypes.INTEGER,
+        ag_date: {
+            type: DataTypes.DATE,
+            allowNull:false
 
         },
 
@@ -11,7 +12,7 @@ module.exports = (sequelize, DataTypes) =>{
             allowNull: false
         },
 
-        training_id:{
+        ag_client_id:{
             type: DataTypes.INTEGER,
             allowNull: false
         }
