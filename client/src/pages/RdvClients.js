@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from "axios";
 import {useEffect, useState} from "react";
+import NavbarClient from '../components/NavbarClient';
 
 function RdvClients() {
     const [listAgendaClient, setListAgendaClient] = useState([]);
@@ -12,7 +13,9 @@ function RdvClients() {
 
   }, [])
   return (
-    <div>  <h1>Hey</h1>
+    <div className='rdv-client'>
+      <NavbarClient /> 
+       <h1>Hey</h1>
     {listAgendaClient.map((value, key)=>{ 
             return (
                 <div>

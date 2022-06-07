@@ -11,12 +11,10 @@ function App() {
   return (
     <div className="App"> 
     <Router>
-      <Link to ="/">Accueil</Link>
-      <Link to ="/rdv">Réserver</Link>
-      <Link to ="/trainings">Trainings</Link>
       <Routes>
         <Route path = "/" element={<AccueilClassic/>}/>
-        <Route path = "/rdv" element = {<RdvClients/>}/>
+        <Route path='/accueil-classic' element={<AccueilClassic/>} />
+        <Route path = "/rdv-clients" element = {<RdvClients/>}/>
         <Route path = "/trainings" element ={<Trainings/>}/>
       </Routes>
     </Router>
