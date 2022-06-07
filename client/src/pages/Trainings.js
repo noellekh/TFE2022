@@ -2,7 +2,7 @@ import React from 'react';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-
+import NavbarClient from '../components/NavbarClient';
 
 function Trainings() {
     const initialValues={
@@ -23,6 +23,8 @@ function Trainings() {
 
   return (
     <div className='trainings'>
+        <NavbarClient />
+        
         <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
             <Form>
                 <label>Entrez votre score: </label>
