@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {FaFacebookSquare, FaInstagramSquare} from "react-icons/fa";
-import '../css/NavbarClassic.css';
+import '../css/Navbar.css';
 import {GiHamburgerMenu} from "react-icons/gi";
 import { NavLink } from "react-router-dom";
 import logo from "../img/logo-fp.png";
