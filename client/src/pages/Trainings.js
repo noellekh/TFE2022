@@ -1,41 +1,63 @@
-import React from 'react';
-import {Formik, Form, Field, ErrorMessage} from 'formik';
-import * as Yup from 'yup';
-import axios from 'axios';
-import NavbarClient from '../components/NavbarClient';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import "../css/Trainings.css";
+import NavbarClient from "../components/NavbarClient";
+import imgsquat from "../img/air-squat.jpg";
+import crunch from "../img/crunch.jpg";
+import planche from "../img/plank.jpg";
+
 
 function Trainings() {
-    const initialValues={
-        score: ""
-    };
+    let {id_training} = useParams();
+    const [trainingObject, setTrainingObject] = useState([]);
 
-    const onSubmit = (data) =>{
-        // faire la db d'abord !
-        //axios.post("http://localhost:3001/agendaclient", data).then ((response)=>{
-        console.log('yes !')
-       // });
-    };
-
-    const validationSchema = Yup.object().shape({
-        score: Yup.string()
-    })
-
-
+    useEffect(()=>{
+        axios.get("http://localhost:3001/training")
+        //.then((res)=> res.json())
+        .then((response)=>{
+            setTrainingObject(response.data);
+        });
+    },[]);
   return (
-    <div className='trainings'>
-        <NavbarClient />
-        
-        <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-            <Form>
-                <label>Entrez votre score: </label>
-                <ErrorMessage name='score' component="span"/>
-                <Field id="inputCreateScore" name="score"/>
-                <button type='submit'>Ajouter score</button>
-            </Form>
 
-        </Formik>
+    <div className="training">
+    <NavbarClient/>
+    <div className="training-container">
+    <h1>Exercices</h1>
+
+    {trainingObject.map((value)=>(
+        
+
+            <div className="exercice" key={value.id_training}>
+        
+                <div className="exo-name">
+                    
+        
+                    <h2>{value.training_name}</h2>
+                    <img className="exo-img" src={imgsquat} alt="img"/>
+                    <p>{value.training_descri}</p>
+                    <form className="exo-form">
+                        <input type="text" className="exo-input" placeholder="Nbr de répétition en 30s"/>
+                        <button className="exo-button">Ajouter score</button>
+                    </form>
+
+                 </div>
+
+        
+
+
+
+
+            </div>
+            )
+    )}
 
     </div>
+
+
+</div>
+
   )
 }
 

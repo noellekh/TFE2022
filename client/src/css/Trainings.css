@@ -1,0 +1,101 @@
+.training h1{
+    font-size: 30px;
+    color: rgb(175,27,27);  
+    margin: 10px;
+
+}
+
+.exercice {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    margin: 15px;
+   
+}
+.exercice h2{
+    font-size: 20px;
+    font-style: italic;
+    color: rgb(175,27,27);
+    margin: 10px;
+}
+
+.exercice img{
+    width: 100px;
+    height: 100px;
+    margin:10px;
+}
+
+.exercice p{
+    font-size: 12px;
+    margin: 10px;
+}
+
+.exo-name{
+    border-style:inset;
+    border-radius: 5px;
+    border-color:rgb(229,194, 80, 0.8);
+}
+
+.exo-input{
+    margin: 10px;
+    border: 0;
+    border-radius:10px;
+    box-shadow:0 0 30px 2px rgba(0,0,0,0.06);
+    width: 170px;
+    height: 30px;
+}
+
+.exo-button{
+    margin: 10px;
+    width: 100px;
+    height: 30px;
+    border: 0;
+    border-radius: 10px;
+    background-color:rgb(175,27,27) ;
+    color: rgb(229,194, 80);
+}
+
+/* ---- Responsive ----- */
+
+@media (max-width: 1080px) {
+}
+
+@media (max-width: 998px) {
+    .exercice{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }    
+}
+
+@media (max-width: 798px) {
+    .exercice{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .exercice h2{
+        font-size: 15px;
+    } 
+    
+    .exercice img{
+        width: 80px;
+        height: 80px;
+    }
+
+    .exo-name{
+        width: 420px;
+
+
+    }
+
+}
+
+@media (max-width: 520px) {
+    .exercice{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .exercice h2{
+        font-size: 15px;
+    }  
+}
