@@ -24,6 +24,9 @@ app.use("/agendaclient", agendaClient);
 const trainings = require('./routes/trainings.route.js');
 app.use("/training",trainings);
 
+const scores = require('./routes/scores.route.js');
+app.use("/scores",scores);
+
 db.sequelize.sync().then(()=>{
     app.listen(3001, ()=>{
         console.log("Server running on port 3001");
