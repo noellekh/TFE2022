@@ -32,11 +32,11 @@ const NavbarClassic =()=>{
                         <li>Boutique</li>
                 </NavLink>
 
-                <NavLink to='/connexion' >
+                <NavLink to='/login' >
                         <li>Connexion</li>
                 </NavLink>
 
-                <NavLink to='/inscription' >
+                <NavLink to='/signin' >
                         <li>Inscription</li>
                 </NavLink>
   

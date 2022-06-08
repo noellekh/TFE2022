@@ -5,6 +5,8 @@ import RdvClients from './pages/RdvClients';
 import Trainings from './pages/Trainings';
 import CreateTrainings from './pages/CreateTrainings';
 import Scores from './pages/Scores';
+import Connexion from './pages/Login';
+import Inscription from './pages/Singin';
 
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
         <Route path = "/trainings" element ={<Trainings/>}/>
         <Route path = "/scores/:id_training" element ={<Scores/>}/>
         <Route path = "/create-trainings" element ={<CreateTrainings/>}/>
+        <Route path = "/login" element ={<Connexion/>}/>
+        <Route path = "/signin" element ={<Inscription/>}/>
       </Routes>
     </Router>
 

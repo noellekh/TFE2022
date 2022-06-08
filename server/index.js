@@ -27,6 +27,10 @@ app.use("/training",trainings);
 const scores = require('./routes/scores.route.js');
 app.use("/scores",scores);
 
+const users = require('./routes/users.route.js');
+app.use("/auth",users);
+
+
 db.sequelize.sync().then(()=>{
     app.listen(3001, ()=>{
         console.log("Server running on port 3001");
