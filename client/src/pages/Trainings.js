@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "../css/Trainings.css";
 import NavbarClient from "../components/NavbarClient";
@@ -11,6 +11,7 @@ import planche from "../img/plank.jpg";
 function Trainings() {
     let {id_training} = useParams();
     const [trainingObject, setTrainingObject] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(()=>{
         axios.get("http://localhost:3001/training")
@@ -29,8 +30,12 @@ function Trainings() {
     {trainingObject.map((value)=>(
         
 
-            <div className="exercice" key={value.id_training}>
-        
+            <div className="exercice" 
+                key={value.id_training}
+                onClick={()=>{
+                    navigate(`/scores/${value.id_training}`)
+                }}>
+  
                 <div className="exo-name">
                     
         

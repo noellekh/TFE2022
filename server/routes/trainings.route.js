@@ -1,6 +1,7 @@
 const express = require ("express");
 const router = express.Router();
 const {Scores} = require('../models');
+const {Trainings} = require ('../models');
 
 router.get("/", async (req, res)=>{
     const listTrainings = await Trainings.findAll();
@@ -9,8 +10,8 @@ router.get("/", async (req, res)=>{
 
 router.get("/byId/:id_training", async(req, res)=>{
     const id_training = req.params.id_training;
-    const score = await Scores.findAll({where:{id_training: id_training}});
-    res.json(score)
+    const train = await Trainings.findByPk(id_training);
+    res.json(train)
 })
 
 router.post("/",async (req, res)=>{

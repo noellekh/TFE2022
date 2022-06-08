@@ -3,7 +3,7 @@ const router = express.Router();
 const { Scores} = require('../models');
 
 router.get("/:id_training", async (req, res)=>{
-    const id_training = eq.params.id_training;
+    const id_training = req.params.id_training;
     const scores = await Scores.findAll({where:{id_training: id_training}});
     res.json(scores);
 });
