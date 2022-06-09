@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Scores} = require('../models');
+const {validateToken} = require('../middleware/authMiddleware')
 
 router.get("/:id_training", async (req, res)=>{
     const id_training = req.params.id_training;
@@ -8,7 +9,7 @@ router.get("/:id_training", async (req, res)=>{
     res.json(scores);
 });
 
-router.post('/', async(req, res)=>{
+router.post('/', validateToken, async(req, res)=>{
     const score = req.body;
     await Scores.create(score);
     res.json(score);

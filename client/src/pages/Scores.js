@@ -32,11 +32,21 @@ function Scores() {
         axios.post("http://localhost:3001/scores", {
             score: newScore,
             id_training: id_training,
+        },
+        {
+            headers:{
+                accessToken: sessionStorage.getItem("accessToken"),
+            },
         })
         .then((response)=>{
-            const scoreAdd = {score: newScore};
-            setScores([...scores, scoreAdd]);
-            setNewScore("");
+            if(response.data.error){
+                alert(response.data.error);
+            }else{
+                const scoreAdd = {score: newScore};
+                setScores([...scores, scoreAdd]);
+                setNewScore("");
+            }
+
         });
     }
 

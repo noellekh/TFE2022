@@ -52,6 +52,7 @@ const onSubmit = (data) =>{
         
         <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
             <Form className='form-signin'>
+            <h2>M'inscrire</h2>
                 <label>Nom:  </label>
                 <ErrorMessage name='user_name' component="span"/>
                 <Field id="createuser" name="user_name" autoComplete="off"/>

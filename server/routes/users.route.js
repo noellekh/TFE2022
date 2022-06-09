@@ -3,6 +3,8 @@ const router = express.Router();
 const {Users} = require('../models');
 const bcrypt = require ('bcrypt');
 
+const {sign}= require('jsonwebtoken');
+
 router.post("/",async (req, res)=>{
     const {
         user_name, 
@@ -48,7 +50,11 @@ router.post('/login', async(req, res)=>{
             
 
         }else{
-            res.json ("Login successful !");
+            const accessToken = sign(
+                {user_email: user.user_email, user_id: user.user_id},
+                 "secret" )
+            res.json (accessToken);
+
         }
 
         });
