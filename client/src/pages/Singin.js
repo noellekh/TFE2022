@@ -3,6 +3,7 @@ import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import NavbarClassic from '../components/NavbarClassic';
+import '../css/Singin.css';
 
 
 function Singin() {
@@ -29,57 +30,59 @@ const validationSchema = Yup.object().shape({
     user_birth: Yup.date().required(),
     user_email: Yup.string().min(3).max(15).required(),
     user_phone: Yup.string().min(10).max(15).required(),
-    user_sex: Yup.string().min(3).max(15).required(),
-    user_street: Yup.string().max(30).required(),
+    user_sex: Yup.string().required(),
+    user_street: Yup.string().required(),
     postal: Yup.number().required(),
     newsletter: Yup.string().required()
 
 });
 
 const onSubmit = (data) =>{
-  axios.post("http://localhost:3001/auth", data).then ((response)=>{
+  axios.post("http://localhost:3001/auth", data).then (()=>{
   console.log(data)
   });
 };
 
 
   return (
-    <div className='signin'>
+    <div>
       <NavbarClassic />
+
+      <div className='signin'>
         
         <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-            <Form>
+            <Form className='form-signin'>
                 <label>Nom:  </label>
-                <ErrorMessage name='nom' component="span"/>
-                <Field id="createuser" name="name" autoComplete="off"/>
+                <ErrorMessage name='user_name' component="span"/>
+                <Field id="createuser" name="user_name" autoComplete="off"/>
 
                 <label>Prénom:  </label>
-                <ErrorMessage name='surname' component="span"/>
-                <Field id="createuser" name="surname" autoComplete="off"/>
+                <ErrorMessage name='user_surname' component="span"/>
+                <Field id="createuser" name="user_surname" autoComplete="off"/>
 
                 <label>Mot de passe:  </label>
-                <ErrorMessage name='passwors' component="span"/>
-                <Field id="createuser" name="password" type="password" autoComplete="off"/>
+                <ErrorMessage name='user_password' component="span"/>
+                <Field id="createuser" name="user_password" type="password" autoComplete="off"/>
 
                 <label>Date de naissance:  </label>
-                <ErrorMessage name='birth' component="span"/>
-                <Field id="createuser" name="birth" autoComplete="off"/>
+                <ErrorMessage name='user_birth' component="span"/>
+                <Field id="createuser" name="user_birth" autoComplete="off"/>
 
                 <label>Email:  </label>
-                <ErrorMessage name='email' component="span"/>
-                <Field id="createuser" name="email" autoComplete="off"/>
+                <ErrorMessage name='user_email' component="span"/>
+                <Field id="createuser" name="user_email" autoComplete="off"/>
 
                 <label>Numéro de téléphone:  </label>
-                <ErrorMessage name='phone' component="span"/>
-                <Field id="createuser" name="phone" autoComplete="off"/>
+                <ErrorMessage name='user_phone' component="span"/>
+                <Field id="createuser" name="user_phone" autoComplete="off"/>
 
                 <label>Sexe:  </label>
-                <ErrorMessage name='sexe' component="span"/>
-                <Field id="createuser" name="sexe" autoComplete="off"/>
+                <ErrorMessage name='user_sex' component="span"/>
+                <Field id="createuser" name="user_sex" autoComplete="off"/>
 
                 <label>Rue:  </label>
-                <ErrorMessage name='street' component="span"/>
-                <Field id="createuser" name="street" autoComplete="off"/>
+                <ErrorMessage name='user_street' component="span"/>
+                <Field id="createuser" name="user_street" autoComplete="off"/>
 
                 <label>Code postal:  </label>
                 <ErrorMessage name='postal' component="span"/>
@@ -89,10 +92,11 @@ const onSubmit = (data) =>{
                 <ErrorMessage name='newsletter' component="span"/>
                 <Field id="createuser" name="newsletter" autoComplete="off"/>
 
-                <button type='submit'>S'inscrire</button>
+                <button type='submit' className='button-signin'>S'inscrire</button>
             </Form>
 
         </Formik>
+      </div>
     </div>
   )
 }

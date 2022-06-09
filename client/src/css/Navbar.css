@@ -126,6 +126,16 @@
     color: rgb(175,27,27);
   }
 
+  .bouton-deconnexion {
+    margin: 10px;
+    width: 100px;
+    height: 30px;
+    border: 0;
+    border-radius: 10px;
+    background-color:rgb(175,27,27) ;
+    color: rgb(229,194, 80);
+  }
+
   /* responsive part */
 
 @media (max-width: 1080px) {
