@@ -68,7 +68,7 @@ const NavbarClient =()=>{
 
                 </NavLink>
 
-                <NavLink to='/rdv-clients' >
+                <NavLink to='/agenda-client' >
                         <li>Agenda</li>
                 </NavLink>
 

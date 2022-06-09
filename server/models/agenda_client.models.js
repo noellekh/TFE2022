@@ -12,14 +12,14 @@ module.exports = (sequelize, DataTypes) =>{
             allowNull: false
         },
 
-        ag_client_id:{
-            type: DataTypes.INTEGER,
-            allowNull: false
-        }
 
 
 
-    })
+    },{
+        freezeTableName: true,
+        timestamps: false
+    }
+    )
 
     return AgendaClient
 }
