@@ -11,6 +11,8 @@ router.get("/:id_training", async (req, res)=>{
 
 router.post('/', validateToken, async(req, res)=>{
     const score = req.body;
+    const user_id = req.user.user_id
+    score.user_id = user_id
     await Scores.create(score);
     res.json(score);
 });

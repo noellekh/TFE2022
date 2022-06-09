@@ -35,14 +35,14 @@ function Scores() {
         },
         {
             headers:{
-                accessToken: sessionStorage.getItem("accessToken"),
+                accessToken: localStorage.getItem("accessToken"),
             },
         })
         .then((response)=>{
             if(response.data.error){
                 alert(response.data.error);
             }else{
-                const scoreAdd = {score: newScore};
+                const scoreAdd = {score: newScore, user_id: response.data.user_id};
                 setScores([...scores, scoreAdd]);
                 setNewScore("");
             }
@@ -78,7 +78,10 @@ function Scores() {
                             
                             <div className="score-" key={key}>
                                 {score.score}
+                                <div><p>{score.user_id}</p></div>
                             </div>
+
+                            
                             )
                         })}
                     </div>

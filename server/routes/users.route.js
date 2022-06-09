@@ -2,6 +2,7 @@ const express = require ("express");
 const router = express.Router();
 const {Users} = require('../models');
 const bcrypt = require ('bcrypt');
+const {validateToken}= require('../middleware/authMiddleware')
 
 const {sign}= require('jsonwebtoken');
 
@@ -60,5 +61,9 @@ router.post('/login', async(req, res)=>{
         });
     }
 });
+
+router.get('/auth', validateToken, (req, res)=>{
+    res.json(req.body)
+})
 
 module.exports = router;

@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import NavbarClassic from '../components/NavbarClassic';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../css/Singin.css';
+import { AuthContext } from '../helpers/Auth';
 
 
 
@@ -11,6 +12,7 @@ function Login() {
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const {setAuthState}= useContext(AuthContext);
 
   const login = ()=>{
     const data = {user_email:mail, user_password:password}
@@ -18,7 +20,8 @@ function Login() {
       if(response.data.error){
         alert(response.data.error);
       }else{
-      sessionStorage.setItem("accessToken", response.data);
+      localStorage.setItem("accessToken", response.data);
+      setAuthState(true);
       navigate('/accueil-client')
       }
     });
