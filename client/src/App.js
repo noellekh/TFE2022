@@ -37,6 +37,7 @@ function App() {
     <AuthContext.Provider value={{authState, setAuthState}}>
     <Router>
       <Routes>
+
         <Route path = "/" element={<AccueilClassic/>}/>
         <Route path='/accueil-classic' element={<AccueilClassic/>} />
         <Route path='/accueil-client' element={<AccueilClient/>} />

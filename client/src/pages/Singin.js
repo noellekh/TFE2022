@@ -4,9 +4,12 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import NavbarClassic from '../components/NavbarClassic';
 import '../css/Singin.css';
+import {useNavigate} from 'react-router-dom';
 
 
 function Singin() {
+
+  const navigate = useNavigate();
 
   const initialValues={
 
@@ -39,6 +42,7 @@ const validationSchema = Yup.object().shape({
 
 const onSubmit = (data) =>{
   axios.post("http://localhost:3001/auth", data).then (()=>{
+    navigate('/login')
   console.log(data)
   });
 };

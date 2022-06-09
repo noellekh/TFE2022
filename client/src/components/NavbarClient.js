@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import axios from 'axios';
 
 import {FaFacebookSquare, FaInstagramSquare} from "react-icons/fa";
@@ -6,21 +6,42 @@ import '../css/Navbar.css';
 import {GiHamburgerMenu} from "react-icons/gi";
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../img/logo-fp.png";
+import { AuthContext } from "../helpers/Auth";
 
 const NavbarClient =()=>{
     const [showMediaIcons, setShowMediaIcons] = useState(false);
     const navigate = useNavigate();
+    const [authState, setAuthState] = useState({
+        user_email:"",
+        user_id:0,
+        status: false
+    });
 
-    const Logout = async () =>{
-        try{
-            await axios.delete("http://localhost:3001/api/v1/authent/logout");
-            navigate('/');
+    useEffect (()=>{
+        axios.get("http://localhost:3001/auth/auth",{
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+            },
+        })
+        .then((response)=>{
+            if (response.data.error){
+                setAuthState({...authState, status: false});
+            }else{
+                setAuthState({
+                    user_email: response.data.user_email,
+                    user_id: response.data.user_id,
+                    status: true,
+                });
+            }
+        });
+    },[]);
 
-        }catch(error){
-            console.log(error);
-
-        }
+    const logout = ()=>{
+        localStorage.removeItem("accessToken");
+        setAuthState({user_email:"", user_id:0, status:false});
+        navigate('/');
     }
+
 
     return (
 
@@ -58,8 +79,10 @@ const NavbarClient =()=>{
                 <NavLink to='/astuces' >
                         <li>Astuces</li>
                 </NavLink>
+                
+                <h2>{authState.user_email}</h2>
 
-                <button onClick={Logout} className="bouton-deconnexion">Se déconnecter</button>
+                <button onClick={logout}  className="bouton-deconnexion">Se déconnecter</button>
 
     
                 </ul>
