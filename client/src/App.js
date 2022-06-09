@@ -7,6 +7,7 @@ import CreateTrainings from './pages/CreateTrainings';
 import Scores from './pages/Scores';
 import Connexion from './pages/Login';
 import Inscription from './pages/Singin';
+import AccueilClient from './pages/AccueilClient';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path = "/" element={<AccueilClassic/>}/>
         <Route path='/accueil-classic' element={<AccueilClassic/>} />
+        <Route path='/accueil-client' element={<AccueilClient/>} />
         <Route path = "/rdv-clients" element = {<RdvClients/>}/>  
         <Route path = "/trainings" element ={<Trainings/>}/>
         <Route path = "/scores/:id_training" element ={<Scores/>}/>
