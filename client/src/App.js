@@ -9,6 +9,7 @@ import Connexion from './pages/Login';
 import Inscription from './pages/Singin';
 import AccueilClient from './pages/AccueilClient';
 import BookCoaching from './pages/BookCoaching';
+import AdminAgenda from './pages/AdminAgenda';
 import { AuthContext } from './helpers/Auth';
 import {useState, useEffect} from "react";
 import axios from 'axios';
@@ -46,6 +47,7 @@ function App() {
         <Route path = "/trainings" element ={<Trainings/>}/>
         <Route path = "/scores/:id_training" element ={<Scores/>}/>
         <Route path='/agenda-client/' element={<BookCoaching/>} />
+        <Route path='/agenda-admin/' element={<AdminAgenda/>} />
         <Route path = "/create-trainings" element ={<CreateTrainings/>}/>
         <Route path = "/login" element ={<Connexion/>}/>
         <Route path = "/signin" element ={<Inscription/>}/>
