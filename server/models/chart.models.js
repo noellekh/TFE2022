@@ -1,37 +1,26 @@
 module.exports = (sequelize, DataTypes) =>{
-    const Scores = sequelize.define ("Scores",{
-
-        id_score:{
+    const Charts = sequelize.define("Charts", {
+        id_chart:{
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
             allowNull: false
         },
 
-        score: {
+        chart_quantity:{
             type: DataTypes.INTEGER,
-
+            allowNull: false
         },
 
-        best_score:{
-            type: DataTypes.INTEGER,
-            allowNull: true
-            
-        },
-
-        score_date:{
+        chart_date:{
             type: DataTypes.DATEONLY,
             defaultValue: DataTypes.NOW,
             allowNull: false
         }
 
+    },
+    {timestamps:false}
+    )
 
-    
-    },{
-        timestamps: false,
-        
-        
-    })
-
-    return Scores
+    return Charts
 }
