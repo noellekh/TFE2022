@@ -11,7 +11,12 @@ router.get("/", async (req, res)=>{
 
 router.get("/:user_id", async (req, res) => {
     const user_id = req.params.user_id;
-    const dates = await AgendaClient.findAll({ where: { user_id: user_id } });
+    const dates = await AgendaClient.findAll({ include:[{
+                                                    model: Users,
+                                                    as:'usr',
+                                                    where:{user_name: user_name}
+                                                    }]
+                                            });
     res.json(dates);
   });
 
