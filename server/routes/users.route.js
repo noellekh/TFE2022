@@ -66,6 +66,11 @@ router.get('/auth', validateToken, (req, res)=>{
     res.json(req.body)
 });
 
+router.get('/all-users',async (req, res)=>{
+    const allUsers = await Users.findall();
+    res.json(allUsers);
+})
+
 router.get('/users', async(req, res)=>{
     const listUser = await Users.findall();
     res.json(listUser)
