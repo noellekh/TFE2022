@@ -6,6 +6,7 @@ const {validateToken}= require('../middleware/authMiddleware')
 
 const {sign}= require('jsonwebtoken');
 
+
 router.post("/",async (req, res)=>{
     const {
         user_name, 
@@ -62,18 +63,20 @@ router.post('/login', async(req, res)=>{
     }
 });
 
+router.get("/",async (req, res)=>{
+    const allUsers = await Users.findAll();
+    res.json(allUsers);
+});
+
+
 router.get('/auth', validateToken, (req, res)=>{
     res.json(req.body)
 });
 
-router.get('/all-users',async (req, res)=>{
-    const allUsers = await Users.findall();
-    res.json(allUsers);
-})
 
-router.get('/users', async(req, res)=>{
-    const listUser = await Users.findall();
-    res.json(listUser)
-});
+
+
+
+
 
 module.exports = router;

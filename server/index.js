@@ -30,9 +30,24 @@ app.use("/scores",scores);
 const users = require('./routes/users.route.js');
 app.use("/auth",users);
 
+const admin = require('./routes/admin.route.js');
+app.use("/admin", admin);
+
+const blog = require('./routes/blog.route.js');
+app.use("/blog", blog);
+
+const charts = require ('./routes/charts.route.js');
+app.use("/charts", charts);
+
+const contact = require ('./routes/contact.route.js');
+app.use("/contact", contact);
+
+const postal = require ('./routes/postal.route.js');
+app.use('/postal', postal);
+
 
 db.sequelize.sync().then(()=>{
-    app.listen(3001, ()=>{
-        console.log("Server running on port 3001");
+    app.listen(3003, ()=>{
+        console.log("Server running on port 3003");
     });
 });
