@@ -45,6 +45,9 @@ app.use("/contact", contact);
 const postal = require ('./routes/postal.route.js');
 app.use('/postal', postal);
 
+const products = require ('./routes/product.route.js');
+app.use('/products', products);
+
 
 db.sequelize.sync().then(()=>{
     app.listen(3003, ()=>{

@@ -9,13 +9,13 @@ router.post('/', async (req, res)=>{
 
     }= req.body;
 
-    await Postal.bulkCreate(
+    await Postal.bulkCreate([
         {zip: 1348, town: "Louvain-La-Neuve"},
         {zip: 1325, town: "Chaumont-Gistoux"},
         {zip: 1000, town: "Bruxelles"}
-    );
+    ]);
 
-    res.json(zip)
+    res.json("postal ok")
 
  
 });
