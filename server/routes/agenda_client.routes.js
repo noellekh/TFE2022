@@ -22,6 +22,18 @@ router.post("/", validateToken,async (req, res)=>{
     book.user_id = user_id;
     await AgendaClient.create(book);
     res.json(book);
+});
+
+router.delete("/:ag_id/:user_id", validateToken, async(req, res)=>{
+    const ag_id = req.params.ag_id;
+    const user_id = req.params.user_id
+    await AgendaClient.destroy({
+        where:{
+            ag_id:ag_id,
+            user_id:user_id
+        },
+    });
+    res.json("Coaching supprimé avec succés")
 })
 
 module.exports = router;

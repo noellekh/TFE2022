@@ -24,9 +24,16 @@ function ClientCalendar() {
     const [excludeDate, setExcludeDate]= useState([])
     const navigate = useNavigate();
 
+    console.log("choose, ", chooseDate);
+    console.log("chosen, ", chosenDate);
+
     const exclu = excludeDate.map((val)=>{
         return val.ag_date
     });
+
+    const disableDates = current =>{
+        return !exclu.includes(current.format('DD/MM/YYYY'));
+    }
 
     console.log("dates prise: ", exclu)
     console.log("date choisie", chooseDate)
@@ -39,23 +46,23 @@ function ClientCalendar() {
     };
 
     const isAvailable = () => {
-        const notAvailday = excludeDate.map((val)=>{
+        const ListnotAvailday = excludeDate.map((val)=>{
             return val.ag_date
         });
 
-        for (var i=0; i < notAvailday.length; i++){
-            //console.log('not available: ', notAvailday[i])
-            return notAvailday[i]
-        }
-        
-        console.log(notAvailday, "")
+        for (var i=0; i < ListnotAvailday.length; i++){
+            const notAvailday = ListnotAvailday[i]
+            //console.log(notAvailday, chooseDate)
+            return notAvailday;
+            };
 
+
+  
+    
         
     }
 
            
-
-
     const chooseDateFormat = moment(chooseDate).format("DD/MM/YYYY")
 
     for (var i=0; i < exclu.length; i++){
@@ -65,7 +72,7 @@ function ClientCalendar() {
     
 
     //console.log(typeof(exclu), exclu[1], exclu.length)
-    //console.log(chooseDateFormat)
+    console.log(chooseDateFormat)
     //console.log(typeof(chooseDate),chooseDate)
 
 
@@ -96,7 +103,24 @@ function ClientCalendar() {
         }
 
 
-    }
+    };
+
+    const DeleteCaoching = (ag_id, user_id)=>{
+
+        axios.delete(`http://localhost:3001/agendaclient/${ag_id}/${user_id}`,{
+            headers: { accessToken: localStorage.getItem("accessToken") },
+        })
+        .then(()=>{
+
+            setChosenDate(
+                chosenDate.map(val=>{
+                    return val.ag_id!==ag_id;
+                }))
+
+
+            //alert("Coaching supprimer avec succés !")
+        });
+    };
 
     useEffect(()=>{
         axios.get(`http://localhost:3001/agendaclient/${user_id}`).then((response)=>{
@@ -121,10 +145,11 @@ function ClientCalendar() {
                     <DatePicker
                         selected={chooseDate}
                         onChange={handleChoiceDate}
+                        dateFormat="dd/MM/yyyy h:mm"
                         minDate= {new Date()}
-                        filterDate={isAvailable}
+                        isValideDate={isAvailable}
                         showTimeSelect
-                        timeintervals={60}
+                        timeIntervals={60}
                         filterTime={PassedTime}
                         minTime={setHours(setMinutes(new Date(), 0), 9)}
                         maxTime={setHours(setMinutes(new Date(), 0), 17)}
@@ -134,15 +159,21 @@ function ClientCalendar() {
 
                     <div className="ag-client-choix">
                         <p>Vous avez choisi {chooseDateFormat ? chooseDateFormat.toString(): null}</p>
-                        <p>{moment(chooseDate).format("dddd DD/MM/yyyy à HH:mm")}</p>
+                        <p>{moment(chooseDate).format("DD/MM/yyyy à HH:mm ")}</p>
                     </div>
 
                     <div className="ag-client-rdv">
                         <h2>Vos rendez-vous</h2>
                         {chosenDate.map((choose, key)=>{
                             return(
+                                
                                 <div className="my-coaching" key={key}>
-                                    {choose.ag_date}
+                                    <ul>
+                                        <li>{moment(choose.ag_date).format(" DD/MM/YYYY à HH:mm ")}</li>
+                                        <li>{choose.ag_id}</li>
+                                        <button onClick={()=>{DeleteCaoching(chosenDate.ag_id, chosenDate.user_id)}}>Supprimer</button>
+                                    </ul>
+                                    
                                 </div>
                             )
                         })}
