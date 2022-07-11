@@ -105,9 +105,9 @@ function ClientCalendar() {
 
     };
 
-    const DeleteCaoching = (ag_id, user_id)=>{
+    const DeleteCaoching = (ag_id)=>{
 
-        axios.delete(`http://localhost:3001/agendaclient/${ag_id}/${user_id}`,{
+        axios.delete(`http://localhost:3001/agendaclient/${ag_id}`,{
             headers: { accessToken: localStorage.getItem("accessToken") },
         })
         .then(()=>{
@@ -118,7 +118,7 @@ function ClientCalendar() {
                 }))
 
 
-            //alert("Coaching supprimer avec succés !")
+            alert("Coaching supprimer avec succés !")
         });
     };
 
@@ -171,7 +171,7 @@ function ClientCalendar() {
                                     <ul>
                                         <li>{moment(choose.ag_date).format(" DD/MM/YYYY à HH:mm ")}</li>
                                         <li>{choose.ag_id}</li>
-                                        <button onClick={()=>{DeleteCaoching(chosenDate.ag_id, chosenDate.user_id)}}>Supprimer</button>
+                                        <button onClick={()=>{DeleteCaoching(choose.ag_id)}}>Supprimer</button>
                                     </ul>
                                     
                                 </div>
