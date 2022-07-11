@@ -17,4 +17,17 @@ router.post('/', validateToken, async(req, res)=>{
     res.json(score);
 });
 
+router.delete('/:id_score',validateToken, async(req, res)=>{
+    const id_score = req.params.id_score;
+    await Scores.destroy({
+        where:{
+            id_score:id_score
+        },
+        
+    })
+    res.json('Scores supprimés avec succés !')
+})
+
+
+
 module.exports = router;

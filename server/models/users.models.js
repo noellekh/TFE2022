@@ -51,9 +51,7 @@ module.exports = (sequelize, DataTypes) =>{
 
     );
 
-    Users.associate = (models)=>{
-        Users.hasMany(models.Scores,{foreignKey: 'user_id'})
-    }
+
 
     Users.associate=(models)=>{
         Users.hasMany(models.AgendaClient, {foreignKey:'user_id'})
@@ -62,6 +60,10 @@ module.exports = (sequelize, DataTypes) =>{
     Users.associate = (models)=>{
         Users.hasMany(models.Charts,{foreignKey:'user_id'});
     
+    }
+
+    Users.associate = (models)=>{
+        Users.hasMany(models.Scores,{foreignKey:'user_id'})
     }
 
     return Users;

@@ -13,18 +13,11 @@ module.exports = (sequelize, DataTypes) =>{
 
         },
 
-        best_score:{
-            type: DataTypes.INTEGER,
-            allowNull: true
-            
-        },
-
         score_date:{
             type: DataTypes.DATEONLY,
             defaultValue: DataTypes.NOW,
             allowNull: false
         }
-
 
     
     },{

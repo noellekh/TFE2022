@@ -56,6 +56,23 @@
     color: rgb(229,194, 80);
 }
 
+.affichage-score{
+    text-align: left;
+    margin-left: 8px;
+}
+
+.affichage-score label{
+    color: rgb(175,27,27);
+    font-size: 15px;
+
+}
+
+.score h2{
+    font-size: 12px;
+    margin-top: 8px;
+    color: black;
+}
+
 /* ---- Responsive ----- */
 
 @media (max-width: 1080px) {
