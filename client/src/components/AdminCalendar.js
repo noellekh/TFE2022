@@ -5,15 +5,25 @@ import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import axios from "axios";
 
+moment.locale("fr");
 
+const localizer = momentLocalizer(moment);
 
-const AdminCalendar= ()=> {
+const AdminCalendar= props => {
 
-    moment.locale("fr");
+    const [trainings, setTrainings] = useState([]);
 
-    const localizer = momentLocalizer(moment);
+    const coaching = trainings.map((training)=>{
+        return{
+            id: training.user_id,
+            title: training.ag_date,
+            start: new Date(training.ag_date),
+            end: new Date(training.ag_date),
+            allDAy: false
+        }
+    });
 
-    const [trainings, setTrainings] = useState([])
+    console.log(coaching)
     useEffect(()=>{
         getAllAgendaClient()
     },[]);
@@ -24,42 +34,35 @@ const AdminCalendar= ()=> {
             .then(function (response) {
             setTrainings(response.data)
             })
-            console.log('trainings: ', setTrainings);
         }catch(error){
             console.log('ERROR agenda admin:', error)
 
-        }
+        }         
+    };
+    
+        return (
+            <div className="big-calender">
+                <Calendar 
+                onSelectEvent={event => 
+                    alert(`${event.title} ${event.id}`)}
+                //onSelectEvent={getAllAgendaClient}
+                timeslots={4}
+                localizer={localizer}
+                events={coaching}
+                startAccessor='start'
+                endAccessor='end'
+                views={['month', 'day', 'week']}
+                style={{height: 450}}
+                
+                
+                />
 
-        
-        
-        
-    }
+            </div>
+    
+        )
+    
 
-    const eventList =trainings.map((training)=>{
-        return{
-            id: trainings.id_user,
-            title: training.agenda_user_date,
-            start: new Date(training.agenda_user_date),
-            end: new Date(training.agenda_user_date),
-            allDAy: false
-        }
+}; 
 
-    })
-    //console.log(eventList);
-
-    return (
-        <Calendar 
-        onSelectEvent={eventList}
-        localizer={localizer}
-        events={eventList}
-        startAccessor='start'
-        endAccessor='end'
-        views={['month', 'day', 'week']}
-        style={{height: 450}}
-        />
-
-    )
-
-};
 
  export default AdminCalendar;

@@ -1,6 +1,8 @@
 import React from 'react';
 import AdminCalendar from '../components/AdminCalendar';
+import Agenda from '../components/Agenda';
 import NavbarAdmin from '../components/NavbarAdmin';
+//import PopUp from '../components/PopUp';
 
 function AdminAgenda() {
   return (
