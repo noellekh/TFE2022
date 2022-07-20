@@ -23,6 +23,7 @@ function ClientCalendar() {
     const [chosenDate, setChosenDate]= useState([]);
     const [excludeDate, setExcludeDate]= useState([])
     const navigate = useNavigate();
+    
 
     console.log("choose, ", chooseDate);
     console.log("chosen, ", chosenDate);
@@ -31,11 +32,22 @@ function ClientCalendar() {
         return val.ag_date
     });
 
+    let n = 0;
+
+    for (var i=0; i < exclu.length; i++){
+        n=i;
+               //console.log("DATES ",excludeDateFormat)
+    };
+
+    console.log("n ", n)
+
+
     const disableDates = current =>{
         return !exclu.includes(current.format('DD/MM/YYYY'));
     }
 
-    console.log("dates prise: ", exclu)
+
+    console.log("dates prise: ", exclu[n])
     console.log("date choisie", chooseDate)
 
     const PassedTime = (time) => {
@@ -46,30 +58,12 @@ function ClientCalendar() {
     };
 
     const isAvailable = () => {
-        const ListnotAvailday = excludeDate.map((val)=>{
-            return val.ag_date
-        });
+        return exclu[n]
 
-        for (var i=0; i < ListnotAvailday.length; i++){
-            const notAvailday = ListnotAvailday[i]
-            //console.log(notAvailday, chooseDate)
-            return notAvailday;
-            };
-
-
-  
-    
-        
     }
 
            
     const chooseDateFormat = moment(chooseDate).format("DD/MM/YYYY")
-
-    for (var i=0; i < exclu.length; i++){
-        const excludeDateFormat = moment(exclu[i]).format("DD/MM/YYYY")
-        //console.log("DATES ",excludeDateFormat)
-    }
-    
 
     //console.log(typeof(exclu), exclu[1], exclu.length)
     console.log(chooseDateFormat)
@@ -147,7 +141,9 @@ function ClientCalendar() {
                         onChange={handleChoiceDate}
                         dateFormat="dd/MM/yyyy h:mm"
                         minDate= {new Date()}
-                        isValideDate={isAvailable}
+                        //isValideDate={isAvailable}
+                        //excludeDates={}
+                        filterDate={isAvailable}
                         showTimeSelect
                         timeIntervals={60}
                         filterTime={PassedTime}

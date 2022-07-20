@@ -33,6 +33,12 @@ router.delete("/:ag_id", validateToken, async(req, res)=>{
         },
     });
     res.json("Coaching supprimé avec succés")
-})
+});
+
+router.put('/coaching-event', async(req, res)=>{
+    const {newDate, ag_id } = req.body;
+    await AgendaClient.update({ag_date: newDate}, {where:{ag_id:ag_id}})
+    res.json(newDate);
+});
 
 module.exports = router;
