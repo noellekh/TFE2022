@@ -41,4 +41,22 @@ router.put('/coaching-event', async(req, res)=>{
     res.json(newDate);
 });
 
+router.post('/mail-confirmation/:user_id', async(req, res)=>{
+    
+    let mailOptions = {
+        from:"fullpatate.00@gmail.com",
+        to: "fullpatate.00@gmail.com",
+        subject:"Nodemailer test",
+        text: "test 1"
+    };
+    
+    transporter.sendMail(mailOptions, function (err, data) {
+        if (err) {
+          console.log("Error " + err);
+        } else {
+          console.log("Email sent successfully");
+        }
+       });
+})
+
 module.exports = router;

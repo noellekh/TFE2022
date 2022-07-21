@@ -1,6 +1,10 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const nodemailer = require('nodemailer');
+
+const notifier = require ('./src/notify');
+const transpot = require( './src/mailer');
 
 app.use(express.json());
 
@@ -47,6 +51,25 @@ app.use('/postal', postal);
 
 const products = require ('./routes/product.route.js');
 app.use('/products', products);
+
+// Send Mail
+
+let transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth:{
+        user:"fullpatate.00@gmail.com",
+        pass: "xgybdcayxkqaelix"
+        
+    }
+});
+
+transporter.verify((err, success)=>{
+    err? console.log(err)
+    : console.log('Pret à envoyer des mails: ${success}');
+});
+
 
 
 db.sequelize.sync().then(()=>{
