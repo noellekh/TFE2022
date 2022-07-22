@@ -53,7 +53,7 @@ const products = require ('./routes/product.route.js');
 app.use('/products', products);
 
 // Send Mail
-
+/*
 let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
@@ -69,6 +69,7 @@ transporter.verify((err, success)=>{
     err? console.log(err)
     : console.log('Pret à envoyer des mails: ${success}');
 });
+*/
 
 
 

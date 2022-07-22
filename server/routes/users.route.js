@@ -68,9 +68,20 @@ router.get("/",async (req, res)=>{
     res.json(allUsers);
 });
 
-
 router.get('/auth', validateToken, (req, res)=>{
-    res.json(req.body)
+    res.json(req.user)
+});
+
+router.get('/user-info/:user_id', async (req, res)=>{
+    const user_id = req.params.user_id;
+    //const user_name = req.body.user_name;
+    const mailUser = await Users.findByPk(user_id,
+        {attributes: ['user_email', 'user_name']},
+        //{where: {user_id:user_id}}
+        
+          
+          )
+        res.json(mailUser)
 });
 
 

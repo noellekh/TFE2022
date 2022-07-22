@@ -22,6 +22,7 @@ function Login() {
       }else{
       localStorage.setItem("accessToken", response.data);
       setAuthState(true);
+      console.log(mail, password)
       navigate('/accueil-client')
       }
     });

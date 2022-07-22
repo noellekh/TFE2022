@@ -31,7 +31,7 @@ const validationSchema = Yup.object().shape({
     user_surname: Yup.string().min(3).max(15).required(),
     user_password: Yup.string().min(3).max(15).required(),
     user_birth: Yup.date().required(),
-    user_email: Yup.string().min(3).max(15).required(),
+    user_email: Yup.string().min(3).max(50).required(),
     user_phone: Yup.string().min(10).max(15).required(),
     user_sex: Yup.string().required(),
     user_street: Yup.string().required(),

@@ -21,10 +21,13 @@ function ClientCalendar() {
     const [chooseDate, setChooseDate] = useState(null)
     const [coaching, setCoaching] = useState('')
     const [chosenDate, setChosenDate]= useState([]);
-    const [excludeDate, setExcludeDate]= useState([])
-    const navigate = useNavigate();
-    
+    const [excludeDate, setExcludeDate]= useState([]);
+    const [mailer, setMailer]= useState([]);
 
+    const navigate = useNavigate();
+
+    
+    console.log("mailer ",mailer)
     console.log("choose, ", chooseDate);
     console.log("chosen, ", chosenDate);
 
@@ -87,7 +90,18 @@ function ClientCalendar() {
                 accessToken: localStorage.getItem("accessToken"),
                 }
             }).then(()=>{
+
                 console.log('ok')
+            })
+            .then(()=>{
+                axios.post("http://localhost:3001/agendaclient/mail-confirmation/",{user_email:mailer.user_email, ag_date:chooseDate},{
+                    headers: {     
+                        'Content-Type': 'application/json',
+                        "Access-Control-Allow-Origin": "*",
+                        accessToken: localStorage.getItem("accessToken") }
+        
+                }).then(()=>{
+                    console.log("email envoyé !")})
             })
             navigate('/agenda-client')
             alert("Sauvegardé avec succè !")
@@ -115,6 +129,17 @@ function ClientCalendar() {
             alert("Coaching supprimer avec succés !")
         });
     };
+/*
+    const EmailConfirmation =()=>{
+        axios.post("http://localhost:3001/agendaclient/mail-confirmation",{},{
+            headers: { accessToken: localStorage.getItem("accessToken") }
+
+        }).then(()=>{setMailer(mailer.map(val=>{
+            return val.user_email && val.user_name
+        }))
+            console.log("email envoyé !")})
+    }
+*/
 
     useEffect(()=>{
         axios.get(`http://localhost:3001/agendaclient/${user_id}`).then((response)=>{
@@ -124,7 +149,13 @@ function ClientCalendar() {
 
         axios.get("http://localhost:3001/agendaclient/").then((response)=>{
             setExcludeDate(response.data)
+        });
+
+        axios.get(`http://localhost:3001/auth/user-info/${user_id}`).then((response)=>{
+            setMailer(response.data)
+            
         })
+
     },[])
 
   return (
@@ -143,7 +174,7 @@ function ClientCalendar() {
                         minDate= {new Date()}
                         //isValideDate={isAvailable}
                         //excludeDates={}
-                        filterDate={isAvailable}
+                        //filterDate={isAvailable}
                         showTimeSelect
                         timeIntervals={60}
                         filterTime={PassedTime}

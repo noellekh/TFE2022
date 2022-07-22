@@ -27,6 +27,9 @@ module.exports = (sequelize, DataTypes) =>{
         timestamps: false
     }
     )
+    AgendaClient.associate=(models)=>{
+        AgendaClient.belongsTo(models.Users,{foreignKey:'user_id'})
+    }
 
     return AgendaClient
 }

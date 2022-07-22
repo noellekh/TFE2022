@@ -54,7 +54,8 @@ module.exports = (sequelize, DataTypes) =>{
 
 
     Users.associate=(models)=>{
-        Users.hasMany(models.AgendaClient, {foreignKey:'user_id'})
+        Users.hasMany(models.AgendaClient, {foreignKey:'user_id'},{as:'useragenda'});
+        AgendaClient.belongsTo(Users);
     }
 
     Users.associate = (models)=>{

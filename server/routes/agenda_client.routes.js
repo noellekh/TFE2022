@@ -1,7 +1,12 @@
 const express = require ("express");
 const router = express.Router();
 const {AgendaClient} = require('../models');
+const {Users} =require('../models')
 const {validateToken} = require('../middleware/authMiddleware')
+//const transporter = require('../index')
+const nodemailer = require('nodemailer');
+const usersModels = require("../models/users.models");
+
 
 router.get("/", async (req, res)=>{
     const listAgendaClient = await AgendaClient.findAll();
@@ -11,7 +16,15 @@ router.get("/", async (req, res)=>{
 
 router.get("/:user_id", async (req, res) => {
     const user_id = req.params.user_id;
-    const dates = await AgendaClient.findAll();
+    const dates = await AgendaClient.findAll({
+        where:{user_id:user_id},
+        include:{
+            model: Users,
+            as:"User",
+            
+            //where:{user_id:user_id}
+        }
+    })
     res.json(dates);
   });
 
@@ -41,18 +54,57 @@ router.put('/coaching-event', async(req, res)=>{
     res.json(newDate);
 });
 
-router.post('/mail-confirmation/:user_id', async(req, res)=>{
-    
+
+let transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth:{
+        user:"fullpatate.00@gmail.com",
+        pass: "xgybdcayxkqaelix"
+        
+    }
+});
+
+transporter.verify((err, success)=>{
+    err? console.log(err)
+    : console.log('Pret à envoyer des mails: ${success}');
+});
+
+
+router.post('/mail-confirmation', async(req, res)=>{
+
+    let text_rv = `<!doctype html>
+    <html>
+        <head>
+            <meta charset="utf-8">
+            <style>
+                .mail-conf:{text-aling:center}
+                .mail-titre:{color: rgb(175,27,27)}
+            </style>
+        </head>
+        <body>
+            <div classname="mail-conf">
+                <div classname="mail-titre"><h1>Full Patate</h1></div>
+                <div classname="mail-text">
+                    <h2>Confirmation de prise de rendez-vous</h2>
+                    <p>Bonjour, vous avez réservé un coaching à la date suivante: ${req.body.ag_date}. Vous pouvez annuler jusqu'à 24h à l'avance via votre espace membre</p>
+                </div>
+            </div>
+        </body>
+    </html>`;
+
+
     let mailOptions = {
         from:"fullpatate.00@gmail.com",
-        to: "fullpatate.00@gmail.com",
-        subject:"Nodemailer test",
-        text: "test 1"
+        to: req.body.user_email,
+        subject:"Confirmation rendez-vous",
+        html: text_rv
     };
     
     transporter.sendMail(mailOptions, function (err, data) {
         if (err) {
-          console.log("Error " + err);
+          console.log("Error mail" + err);
         } else {
           console.log("Email sent successfully");
         }
